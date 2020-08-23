@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
+import '../widgets/chat/messages.dart';
+import '../widgets/chat/new_message.dart';
+
 class ChatScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -28,36 +31,29 @@ class ChatScreen extends StatelessWidget {
               }),
         ],
       ),
-      body: StreamBuilder(
-          stream: Firestore.instance
-              .collection('/ChatApp/PuC0dvcVj5P6i1B9Qmns/messages/')
-              .snapshots(),
-          builder: (ctx, streamSnapshot) {
-            if (streamSnapshot.connectionState == ConnectionState.waiting) {
-              return Center(child: CircularProgressIndicator());
-            }
-            print(streamSnapshot.data.documents[0]['chat']);
-            final docs = streamSnapshot.data.documents;
-            return ListView.builder(
-              itemBuilder: (ctx, index) => Container(
-                  child: Text(docs[index]['chat']), padding: EdgeInsets.all(8)),
-              itemCount: docs.length,
-            );
-          }),
-      floatingActionButton: FloatingActionButton(
-          child: Icon(Icons.add),
-          onPressed: () {
-            Firestore.instance
-                .collection('/ChatApp/PuC0dvcVj5P6i1B9Qmns/messages')
-                .add({'chat': 'This was added when i click button'});
-            //   .snapshots()
-            //   .listen((data) {
-            // data.documents.forEach((element) {
-            //   print(element['chat']);
-            // });
-
-            // });
-          }),
+      body: Container(
+          child: Column(
+        children: <Widget>[
+          Expanded(
+            child: Messages(),
+          ),
+          NewMessage(),
+        ],
+      )),
     );
   }
 }
+// floatingActionButton: FloatingActionButton(
+//     child: Icon(Icons.add),
+//     onPressed: () {
+//       Firestore.instance
+//           .collection('/ChatApp/PuC0dvcVj5P6i1B9Qmns/messages')
+//           .add({'chat': 'This was added when i click button'});
+//       //   .snapshots()
+//       //   .listen((data) {
+//       // data.documents.forEach((element) {
+//       //   print(element['chat']);
+//       // });
+
+//       // });
+//     }),

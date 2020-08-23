@@ -45,32 +45,32 @@ class _AuthFormState extends State<AuthForm> {
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  if (!_isLogin)
-                    TextFormField(
-                        key: ValueKey('email'),
-                        keyboardType: TextInputType.emailAddress,
-                        decoration: InputDecoration(labelText: "Email Address"),
-                        validator: (value) {
-                          if (value.isEmpty || !value.contains('@')) {
-                            return ' Please enter a valid email address';
-                          }
-                          return null;
-                        },
-                        onSaved: (value) {
-                          _userEmail = value;
-                        }),
                   TextFormField(
-                      key: ValueKey('username'),
-                      decoration: InputDecoration(labelText: "Username"),
+                      key: ValueKey('email'),
+                      keyboardType: TextInputType.emailAddress,
+                      decoration: InputDecoration(labelText: "Email Address"),
                       validator: (value) {
-                        if (value.isEmpty || value.length < 4) {
-                          return 'Username must be at least 4 characters long';
+                        if (value.isEmpty || !value.contains('@')) {
+                          return ' Please enter a valid email address';
                         }
                         return null;
                       },
                       onSaved: (value) {
-                        _userName = value;
+                        _userEmail = value;
                       }),
+                  if (!_isLogin)
+                    TextFormField(
+                        key: ValueKey('username'),
+                        decoration: InputDecoration(labelText: "Username"),
+                        validator: (value) {
+                          if (value.isEmpty || value.length < 4) {
+                            return 'Username must be at least 4 characters long';
+                          }
+                          return null;
+                        },
+                        onSaved: (value) {
+                          _userName = value;
+                        }),
                   TextFormField(
                       key: ValueKey('password'),
                       decoration: InputDecoration(labelText: "Password"),

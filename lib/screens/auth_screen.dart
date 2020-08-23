@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../widgets/auth_form.dart';
+import '../widgets/auth/auth_form.dart';
 
 import 'package:flutter/services.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -29,7 +29,7 @@ class _AuthScreenState extends State<AuthScreen> {
 
       if (isLogin) {
         authResult = await _auth.signInWithEmailAndPassword(
-            email: userName, password: password);
+            email: email, password: password);
         setState(() {
           _isLoading = false;
         });
