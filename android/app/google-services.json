@@ -10,7 +10,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:1061634311589:android:e82a486dba60b292b0944c",
         "android_client_info": {
-          "package_name": "com.example.sgcc_chatApp"
+          "package_name": "com.sgcc.sgcc_chatApp"
         }
       },
       "oauth_client": [

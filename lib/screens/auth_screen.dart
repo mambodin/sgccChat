@@ -3,6 +3,7 @@ import '../widgets/auth/auth_form.dart';
 
 import 'package:flutter/services.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class AuthScreen extends StatefulWidget {
   @override
@@ -36,9 +37,18 @@ class _AuthScreenState extends State<AuthScreen> {
       } else {
         authResult = await _auth.createUserWithEmailAndPassword(
             email: email, password: password);
-        setState(() {
-          _isLoading = false;
+
+        await Firestore.instance
+            .collection('users')
+            .document(authResult.user.uid)
+            .setData({
+          'username': userName,
+          'email': email,
         });
+
+        // setState(() {
+        //   _isLoading = false;
+        // });
       }
     } on PlatformException catch (err) {
       var message = 'An error has occurred. Please check your credentials.';
